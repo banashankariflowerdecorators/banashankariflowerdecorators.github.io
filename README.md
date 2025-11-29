@@ -5,7 +5,7 @@ Files:
 - style.css
 - script.js
 
-How to run locally (Windows PowerShell ):
+How to run locally (Windows PowerShelll ):
 
 1. Open PowerShell and change directory to this folder:
 
@@ -24,4 +24,5 @@ How to run locally (Windows PowerShell ):
 Notes:
 - The project uses external images from Unsplash and Google Fonts; an internet connection is required to fetch them.
 - To modify content, edit `index.html` and `style.css`.
+
 
