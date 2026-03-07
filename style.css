@@ -275,6 +275,117 @@ section h2 + .section-sub { text-align: center; }
 .chip:hover{transform:translateY(-3px)}
 .chip.active{background:var(--color-primary); color:white; box-shadow:var(--shadow); border-color: var(--color-primary);}
 
+/* Event Type Cards */
+.event-type-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+.event-card {
+  background: white;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, border 0.2s;
+  border: 3px solid transparent;
+  position: relative;
+}
+.event-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 28px rgba(51,51,51,0.15);
+}
+.event-card.active {
+  border-color: var(--color-primary);
+  box-shadow: 0 10px 28px rgba(181, 131, 141, 0.3);
+}
+.event-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+.event-card-content {
+  padding: 1rem;
+  text-align: center;
+}
+.event-card h3 {
+  margin: 0 0 0.5rem 0;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.event-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+/* Sub Event Type Cards */
+.sub-event-type-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.sub-event-card {
+  background: white;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, border 0.2s;
+  border: 2px solid transparent;
+  position: relative;
+}
+.sub-event-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(51,51,51,0.12);
+}
+.sub-event-card.active {
+  border-color: var(--color-secondary);
+  box-shadow: 0 8px 20px rgba(109, 159, 113, 0.3);
+}
+.sub-event-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  display: block;
+}
+.sub-event-card .event-card-content {
+  padding: 0.75rem;
+}
+.sub-event-card h3 {
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+.sub-event-card p {
+  font-size: 0.85rem;
+}
+
+/* focus/highlight animation for guiding users */
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(181,131,141,0.7); }
+  70% { box-shadow: 0 0 0 12px rgba(181,131,141,0); }
+  100% { box-shadow: 0 0 0 0 rgba(181,131,141,0); }
+}
+.pulse {
+  animation: pulse 1s ease-out;
+}
+
+/* simple rupee icon helper */
+.icon-rupee::before {
+  content: "₹";
+  font-size: 1.2em;
+  vertical-align: middle;
+}
+.icon-rupee {
+  margin-right: 0.4rem; /* space after icon */
+}
+
 /* Grid */
 .grid{
   display: grid;
@@ -723,6 +834,13 @@ a:focus, button:focus {outline: 3px solid rgba(129,199,132,0.25); outline-offset
 .fab-whatsapp {
   background: #25D366;
   color: #fff;
+}
+.rupee-icon {
+  font-family: Arial, sans-serif; /* Arial renders the Rupee symbol best */
+  font-weight: 400;               /* Removes the boldness (Normal weight) */
+  font-size: 1.1em;               /* Makes it slightly larger for clarity */
+  margin-right: 5px;              /* Adds a small gap between symbol and text */
+  vertical-align: middle;         /* Aligns it perfectly with the text */
 }
 
 @media (max-width: 720px) {

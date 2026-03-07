@@ -118,7 +118,9 @@
           <h1>Banashankari Flower Decorators</h1>
           <p class="lead">Exquisite designs for every occasion. Your trusted partner for creating unforgettable floral experiences in Bangalore.</p>
           <div class="hero-buttons">
-            <a class="btn btn-primary" id="see-work" href="#gallery">Explore Packages</a>
+           <a class="btn btn-primary" id="see-work" href="#services">
+              <span class="rupee-icon">₹</span> Check Packages
+            </a>
             <a class="btn btn-outline" id="hero-book" href="mailto:shreebsflowerdecorators@gmail.com?subject=Booking%20Enquiry">Contact Now</a>
           </div>
         </div>
@@ -134,11 +136,35 @@
         <h2>Explore by Event Type</h2>
         <p class="section-sub">Choose an event to see packages we've lovingly created.</p>
 
-        <div id="primary-filters" class="filter-chips" role="tablist" aria-label="Event filters">
-          <button class="chip active" data-filter="all" role="tab" aria-selected="true">All</button>
-          <button class="chip" data-filter="Wedding" role="tab">Wedding</button>
-          <button class="chip" data-filter="Birthday" role="tab">Birthday/Naming Ceremony</button>
-          <button class="chip" data-filter="Haldi" role="tab">Haldi Ceremony</button>
+        <div id="primary-filters" class="event-type-grid" role="tablist" aria-label="Event filters">
+          <div class="event-card active" data-filter="all" role="tab" aria-selected="true">
+            <img src="images/hero/hero.jpeg" alt="All Events" />
+            <div class="event-card-content">
+              <h3>All Events</h3>
+              <p>Explore our complete collection</p>
+            </div>
+          </div>
+          <div class="event-card" data-filter="Wedding" role="tab">
+            <img src="images/stage/stage-decoration-01.jpeg" alt="Wedding Decorations" />
+            <div class="event-card-content">
+              <h3>Wedding</h3>
+              <p>Make your special day unforgettable</p>
+            </div>
+          </div>
+          <div class="event-card" data-filter="Birthday" role="tab">
+            <img src="images/birthday/stage/birthday-stage-04.jpeg" alt="Birthday & Naming Ceremony" />
+            <div class="event-card-content">
+              <h3>Birthday/Naming Ceremony</h3>
+              <p>Celebrate life's milestones</p>
+            </div>
+          </div>
+          <div class="event-card" data-filter="Haldi" role="tab">
+            <img src="images/haldi/stage/haldi-stage-01.jpeg" alt="Haldi Ceremony" />
+            <div class="event-card-content">
+              <h3>Haldi Ceremony</h3>
+              <p>Traditional rituals with elegance</p>
+            </div>
+          </div>
         </div>
 
         <!-- Sub-category filters will be injected here by JS -->
