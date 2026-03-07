@@ -99,7 +99,10 @@ body{
   text-decoration:none;
   color:var(--text);
 }
-.logo-flower{font-size:2rem}
+.logo-image {
+  width: 2rem;
+  height: auto;
+}
 
 /* Nav */
 .main-nav ul{
