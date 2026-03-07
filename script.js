@@ -105,7 +105,7 @@ const products = [
   {
     id: 12,
     title: "Stage Decoration 12",
-    price: "₹450500",
+    price: "₹45,000",
     description: "A bright and cheerful theme perfect for daytime functions.",
     category: "Wedding, Stage",
     moreInfo: "Utilizes bright yellow and white flowers with light-colored drapes to create a fresh and airy atmosphere.",
@@ -420,6 +420,33 @@ const products = [
   },
 ];
 
+const subCategoryImages = {
+  'Wedding': {
+    'Stage': 'images/stage/stage-decoration-01.jpeg',
+    'Mandap': 'images/mandapam/mandapam-decoration-01.jpg',
+    'Entrance': 'images/maindoor-entrance/entrance-decoration-01.jpeg',
+    'Nameboard': 'images/nameboard/nameboard-decoration-01.jpeg'
+  },
+  'Birthday': {
+    'Stage': 'images/birthday/stage/birthday-stage-01.jpeg',
+    'Nameboard': 'images/birthday/nameboard/birthday-nameboard-01.jpeg'
+  },
+  'Haldi': {
+    'Stage': 'images/haldi/stage/haldi-stage-01.jpeg',
+    'Nameboard': 'images/haldi/nameboard/haldi-nameboard-01.jpeg'
+  }
+};
+
+function getSubTagline(sub) {
+  const taglines = {
+    'Stage': 'Elegant stage setups',
+    'Mandap': 'Traditional wedding canopies',
+    'Entrance': 'Welcoming archways',
+    'Nameboard': 'Personalized signage'
+  };
+  return taglines[sub] || 'Beautiful decorations';
+}
+
 const subCategoryMap = {
   'Wedding': ['Stage', 'Mandap', 'Entrance', 'Nameboard'],
   'Birthday': ['Stage', 'Nameboard'],
@@ -560,6 +587,15 @@ document.addEventListener('DOMContentLoaded', function () {
     button.setAttribute('aria-selected', 'true');
   }
 
+  function setActiveCard(card, groupSelector) {
+    document.querySelectorAll(groupSelector).forEach(c => {
+      c.classList.remove('active');
+      c.setAttribute('aria-selected', 'false');
+    });
+    card.classList.add('active');
+    card.setAttribute('aria-selected', 'true');
+  }
+
   function renderSubCategories(primaryCategory) {
     if (primaryCategory === 'all' || !subCategoryMap[primaryCategory]) {
       subCategoryContainer.innerHTML = '';
@@ -569,9 +605,23 @@ document.addEventListener('DOMContentLoaded', function () {
     const subCategories = subCategoryMap[primaryCategory];
     const subCategoryHTML = `
       <p class="section-sub" style="margin-top:0; margin-bottom:1rem;">Filter by decoration type:</p>
-      <div class="filter-chips" role="tablist" aria-label="Sub-category filters">
-        <button class="chip active" data-filter="all" role="tab" aria-selected="true">All ${primaryCategory}</button>
-        ${subCategories.map(sub => `<button class="chip" data-filter="${sub}" role="tab">${sub}</button>`).join('')}
+      <div class="sub-event-type-grid" role="tablist" aria-label="Sub-category filters">
+        <div class="sub-event-card active" data-filter="all" role="tab" aria-selected="true">
+          <img src="images/hero/hero.jpeg" alt="All ${primaryCategory}" />
+          <div class="event-card-content">
+            <h3>All ${primaryCategory}</h3>
+            <p>View all options</p>
+          </div>
+        </div>
+        ${subCategories.map(sub => `
+          <div class="sub-event-card" data-filter="${sub}" role="tab">
+            <img src="${subCategoryImages[primaryCategory][sub]}" alt="${sub} Decorations" />
+            <div class="event-card-content">
+              <h3>${sub}</h3>
+              <p>${getSubTagline(sub)}</p>
+            </div>
+          </div>
+        `).join('')}
       </div>
     `;
     subCategoryContainer.innerHTML = subCategoryHTML;
@@ -596,29 +646,53 @@ document.addEventListener('DOMContentLoaded', function () {
   function setupFilters() {
     if (primaryFiltersContainer) {
       primaryFiltersContainer.addEventListener('click', function(e) {
-        const chip = e.target.closest('.chip');
-        if (!chip) return;
+        const card = e.target.closest('.event-card');
+        if (!card) return;
 
-        activePrimaryFilter = chip.dataset.filter;
+        activePrimaryFilter = card.dataset.filter;
         activeSubFilter = 'all'; // Reset sub-filter
         renderSubCategories(activePrimaryFilter); // Render sub-categories first
-        setActiveChip(chip, '#primary-filters .chip');
+        setActiveCard(card, '#primary-filters .event-card');
         filterCards();
+
+        // scroll to sub-category area (or gallery when no subcategories)
+        if (activePrimaryFilter === 'all' || !subCategoryMap[activePrimaryFilter]) {
+          document.getElementById('gallery').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          subCategoryContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       });
     }
 
     if (subCategoryContainer) {
       subCategoryContainer.addEventListener('click', function(e) {
-        const chip = e.target.closest('.chip');
-        if (!chip) return;
+        const card = e.target.closest('.sub-event-card');
+        if (!card) return;
 
-        activeSubFilter = chip.dataset.filter;
-        setActiveChip(chip, '#sub-category-container .chip');
+        activeSubFilter = card.dataset.filter;
+        setActiveCard(card, '#sub-category-container .sub-event-card');
         filterCards();
+
+        // once a subcategory is chosen, scroll to products
+        document.getElementById('gallery').scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     }
   }
   setupFilters();
+
+  // when hero button is clicked, scroll/guide to event type cards
+  const seeWorkBtn = document.getElementById('see-work');
+  if (seeWorkBtn) {
+    seeWorkBtn.addEventListener('click', function(e) {
+      // allow anchor to do normal scrolling, but also highlight
+      const grid = document.getElementById('primary-filters');
+      if (grid) {
+        // apply pulse after a tiny delay so that grid is in view
+        setTimeout(() => grid.classList.add('pulse'), 500);
+        setTimeout(() => grid.classList.remove('pulse'), 1500);
+      }
+    });
+  }
 
   // Delegate thumbnail clicks from the info panel
   document.querySelector('.lb-info-panel').addEventListener('click', function(e) {
